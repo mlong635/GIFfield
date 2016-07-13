@@ -21,11 +21,6 @@ io.on('connection', function(socket){
     socket.broadcast.emit('playNpause', cb);
   });
 
-  socket.on('playNpause', function(cb){
-    console.log('SERVER CAUGHT', cb);
-    io.emit('playNpause', cb);
-  });
-
   socket.on('username', function(name){
     socket['name'] = name;
     
@@ -49,6 +44,14 @@ io.on('connection', function(socket){
     socket.broadcast.emit('stop typing', {
       username: socket.name
     });
+  });
+  // when the client emits 'songAdded', we broadcast it to others
+  socket.on('songAdded', function(cb){
+    socket.broadcast.emit('songAdded', cb);
+  });
+  // when the client emits 'playThisSong', we broadcast it to others
+  socket.on('playThisSong', function(cb){
+    socket.broadcast.emit('playThisSong', cb);
   });
 
   socket.on('disconnect', function(){

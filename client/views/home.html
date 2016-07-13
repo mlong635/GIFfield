@@ -22,15 +22,21 @@
                 <div class="pauseButton">
                     <i class="fa fa-pause fa-3x showPause buttonColor" ng-click="pause()" aria-hidden="true"></i>
                 </div>
-                <!--  <button class='stop'><i class="fa fa-stop fa-1x buttonColor" aria-hidden="true"></i></button> -->
                 <div class='volume'><i class="fa fa-volume-up fa-2x buttonColor showFullVolume" aria-hidden="true"></i><i class="fa fa-volume-down fa-2x buttonColor
 showMidVolume" aria-hidden="true"></i><i class="fa fa-volume-off fa-2x buttonColor showMuteVolume" aria-hidden="true"></i></div>
             </div>
             <div class="well playListBorder">
                 <span class="innerPlayList">Playlist</span>
-                <hr class="separator">
                 <ul class="tracks" ng-animate="'highlight'">
-                    <li>{{ item }}</li>
+                    </li>
+                    <input type="text" class="addToPlaylist-input" placeholder="copy and paste SoundCloud embed code" style="width:400px;font-size:14pt;" ng-model="newSong">
+                    <button ng-click="addToPlaylist(newSong)">Add Song to Your PlayList</button>
+                    <br><br>
+                    <input type="text" ng-model="search" placeholder="search for a song in your playlist" style="width:400px;font-size:14pt;">
+                    <li ng-repeat="song in playlist | filter:search" ng-click="playThisSong($index)">
+
+                    <h3>{{ song.artist }} "{{ song.songName }}"</h3>
+                    </li>
                 </ul>
             </div>
         </div>
