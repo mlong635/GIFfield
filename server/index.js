@@ -1,21 +1,23 @@
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-var request = require('request');
-var bodyParser = require('body-parser');
-var io = require('socket.io')(http);
-
-
-app.use(express.static(__dirname +'/../client'));
-app.use(bodyParser.json());
-
-app.get('/', function(req, res){
- res.sendFile(__dirname +'/../client/index.html');
-
-});
-
+const express = require('express');
+const app = express();
+const http = require('http').Server(app);
+const bodyParser = require('body-parser');
+const path = require('path');
+const io = require('socket.io')(http);
+const compression = require('compression');
 //persist current song
 var currentSong = "";
+app.use(compression());
+app.use(express.static(__dirname + '/client'));
+
+// Set static path to bower_components directory
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
+app.use('/node_modules', express.static(__dirname + '/node_modules'));
+app.use(bodyParser.json());
+
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/client/minIndex.html');
+});
 
 
 io.on('connection', function(socket){
@@ -30,8 +32,6 @@ io.on('connection', function(socket){
       io.emit('removeSong', cb);
     });
 
-
-
   socket.on('playNpause', function(cb){
     if(cb.status === 'play'){
       console.log('status was play', cb.id);
@@ -40,7 +40,6 @@ io.on('connection', function(socket){
     io.emit('playNpause', cb);
     //socket.emit('playNpause', cb);
   });
-  
 
   socket.on('username', function(name){
     socket['name'] = name;
