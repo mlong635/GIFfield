@@ -3,12 +3,12 @@ var appPlayer = angular.module('MusicPlayer', ['ngRoute', 'ngCookies', 'ngMateri
 appPlayer.config(function($routeProvider, $mdThemingProvider) { // $mdThemingProvider, for the Progress Bar
     $routeProvider
         .when('/home', {
-            controller: 'HomeController',
-            templateUrl: '../views/home.html'
+          controller: 'HomeController',
+          templateUrl: '../views/min/home.html'
         })
         .when('/', {
-            controller: 'LandingPage',
-            templateUrl: '../views/landingPage.html'
+          controller: 'SplashController',
+          templateUrl: '../views/min/splash.html'
         })
         .otherwise({
             redirectTo: '/'
