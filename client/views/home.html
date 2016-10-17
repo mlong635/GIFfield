@@ -1,70 +1,57 @@
-<!-- Full page wrapper-->
-<div class='fullPage'>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <div class="logoPos">
-        <img class="logo text-center" src="../assets/uHerd.me-logo.png">
-    </div>
-    <div class="songCover">
-        <!-- Point current playing song cover to this logo -->
-        <img class="logo" src="{{playListFinal[0].artwork}}">
-    </div>
-    <!-- Search field -->
-    <div class="searchArtists">
-        <form ng-submit="findArtist()">
-            <input type="text" ng-model="searchArtist" class="form-control input-lg inputSearch" placeholder="Search {{ options }}" />
-        </form>
+<!-- Search field -->
+<div>
+  <div>
+    <form ng-submit="findArtist()">
+      <input type="text" ng-model="searchArtist" class="form-control input-lg inputSearch" placeholder="Search for {{ options }} from Soundcloud" />
+    </form>
+  </div>
+  <!-- Chat and Playlist segments -->
+  <div class="container">
+    <div id="playlist">
+      <p> Search for songs to add to your playlist </p>
+      <ul class="tracks">
+        <li class="track" ng-click='letsPlay()' ng-repeat='track in playListFinal'>
+          <img class="songCoverPL" src="{{track.artwork}}" />
+          <span class="singerTitle">Title: {{track.title}}</span>
+          <span class="singerName">Artist: {{track.name}}</span>
+          <i class="fa fa-play fa-1x playOne" ng-click="playChosen(this.track)" aria-hidden="true"></i>
+          <i class="fa fa-times close-song" aria-hidden="true" ng-click='rmvPlayListItem(this.track)'></i>
+        </li>
+      </ul>
     </div>
     <!-- Populate Messages -->
     <!-- Chats -->
-    <div class="chats">
-        <!-- Populate Messages li-->
-        <p class="isTyping" ng-show="checkTyping">{{typingMessage}}</p>
-        <ul class="well" id="messages">
-            <li class="message" ng-repeat="chatMessage in chatMessages track by $index" ng-class="chatMessage.split(':')[0] === user ? 'left' : 'right'">{{ chatMessage }}</li>
+    <div class="chat">
+      <!-- Populate Messages li-->
+      <div id="msg-output">
+        <ul id="messages">
+          <li class="message" ng-repeat="chatMessage in chatMessages track by $index" ng-class="chatMessage.split(':')[0] === user ? 'left' : 'right'">{{ chatMessage }}</li>
         </ul>
-        <!-- Submit Message -->
-        <form ng-submit="chatSend()" class="msgInput">
-            <input class="background userMsg" type="text" ng-change="updateTyping()" ng-model="chatMsg" autocomplete="off" autofocus placeholder="Type Message and Press Enter" />
-            <input class="chatMsgSend background" type="submit" ng-submit="chatSend()" value="Send">
+        <p class="isTyping" ng-show="checkTyping">{{typingMessage}}</p>
+      </div>
+      <!-- Submit Message -->
+      <div class="msg-input">
+        <form ng-submit="chatSend()" class="text-form">
+          <input class="background userMsg" type="text" ng-change="updateTyping()" ng-model="chatMsg" autocomplete="off" autofocus placeholder="Type your message in here" />
+          <input class="chatMsgSend background" type="submit" ng-submit="chatSend()" value="Send">
         </form>
+      </div>
     </div>
-    <!-- **************  PLAYER   ******************-->
-    <div class='player'>
-        <div class="windowImg">
-            <div class="btnWrapper">
-                <div class="playButton">
-                    <i class="fa fa-play fa-3x showPlay" ng-click="play()" aria-hidden="true"></i>
-                </div>
-                <div class="pauseButton">
-                    <i class="fa fa-pause fa-3x showPause" ng-click="pause()" aria-hidden="true"></i>
-                </div>
-                <div class="nextButton">
-                    <i ng-click="next()" class="fa fa-step-forward fa-3x showNext" aria-hidden="true"></i> </div>
-                <div ng-click="volume()" class='volume'>
-                    <i ng-show="fHigh" class="fa fa-volume-up fa-2x showFullVolume" aria-hidden="true"></i><i ng-show="fMid" class="fa fa-volume-down fa-2x showMidVolume" aria-hidden="true"></i><i class="fa fa-volume-off fa-2x showMuteVolume" aria-hidden="true"></i>
-                </div>
-                <!--  <div class="progress"> progress bar
-                    <md-progress-linear md-mode="determinate" class="md-pink" value="{{determinateValue}}"></md-progress-linear>
-                </div> -->
-            </div>
+  </div>
+  <!-- **************  PLAYER   ******************-->
+  <div class='player'>
+    <div class="windowImg">
+      <div class="btnWrapper">
+        <div class="playButton">
+          <i class="fa fa-play fa-3x showPlay" ng-click="playBottom()" aria-hidden="true"></i>
         </div>
+        <div class="pauseButton">
+          <i class="fa fa-pause fa-3x showPause" ng-click="pause()" aria-hidden="true"></i>
+        </div>
+        <div class="nextButton">
+          <i ng-click="next()" class="fa fa-step-forward fa-3x showNext" aria-hidden="true"></i>
+        </div>
+      </div>
     </div>
-    <!-- <p class="emptyList" ng-show="cleanList"> Looks like there is nothing to play. Add some more songs and try again! </p> Working on this piece next -->
-    <div class="playList">
-        <div class="plTitle">
-            <p>Playlist</p>
-        </div>
-        <hr class="separator">
-        <div>
-            <ul class="initTrack">
-                <li class="tracks" ng-click='rmvPlayListItem(this.track)' ng-click='letsPlay()' ng-repeat='track in playListFinal'>
-                    <!-- <i  aria-hidden="true"></i> -->
-                    <img class="songCoverPL" src="{{track.artwork}}" />
-                    <span class="singerTitle">Title: {{track.title}}</span>
-                    <p><span class="singerName">Artist: {{track.name}}</span></p>
-                    <p><span class="releaseYear">{{track.releaseYear}}</span></p>
-                </li>
-            </ul>
-        </div>
-    </div>
+  </div>
 </div>
