@@ -1,16 +1,18 @@
 {
-  "name": "giffield",
+  "name": "uHerd.me",
   "version": "1.0.0",
-  "description": "Gif Library",
+  "description": "A P2P Chat and Music streaming app.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/clefnetwork/GIFfield.git"
   },
-  "author": "",
+  "author": "Elifaz Filho, Amol Joshi, Reed Cureton, Matt Long, George Mynatt",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/clefnetwork/GIFfield/issues"
@@ -18,21 +20,33 @@
   "homepage": "https://github.com/clefnetwork/GIFfield#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "bower": "^1.7.9",
+    "compression": "^1.6.2",
     "express": "^4.14.0",
     "http": "0.0.0",
+    "node-soundcloud": "0.0.5",
+    "path": "^0.12.7",
     "request": "^2.72.0",
     "socket.io": "^1.4.8",
-    "soundcloud": "^3.1.2"
+    "soundcloud": "^3.1.2",
+    "soundmanager2": "^2.97.20150601-a"
   },
-   "devDependencies": {
-    "jasmine-core": "^2.4.1",
-    "karma": "^1.1.1",
-    "mocha": "^2.5.3",
+  "devDependencies": {
     "chai": "^3.5.0",
-    "karma-phantomjs-launcher": "^1.0.1",
-    "phantomjs": "^2.1.7",
-    "karma-jasmine": "^1.0.2",
+    "karma": "^1.1.1",
     "karma-chrome-launcher": "^1.0.1",
-    "karma-jasmine": "^1.0.2"
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.1",
+    "grunt": "~0.4.5",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-htmlmin": "^2.0.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "^0.5.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "jasmine-core": "^2.4.1",
+    "mocha": "^2.5.3",
+    "phantomjs": "^2.1.7"
   }
 }
