@@ -547,11 +547,11 @@ ul {
 }*/
 
 .btnWrapper {
-    position: absolute;
+    position: fixed;
     background: rgb(50, 55, 50);
     margin-top: 10px;
     width: 100%;
-    bottom: 0;
+    bottom: 0px;
     height: 100px;
     transition: border-top 0.3s ease;
 }
