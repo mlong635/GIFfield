@@ -1,9 +1,13 @@
 {
   "name": "giffield",
-  "description": "Gif Library",
+  "description": "A P2P Chat and Music streaming app.",
   "main": "index.js",
   "authors": [
-    "elifaz <zafile3@hotmail.com>"
+    "Elifaz Filho",
+    "Amol Joshi",
+    "Reed Cureton",
+    "Matt Long",
+    "George Mynatt"
   ],
   "license": "ISC",
   "homepage": "https://github.com/Elifaz/GIFfield",
@@ -15,9 +19,13 @@
     "tests"
   ],
   "dependencies": {
-    "angular-cookies": "^1.5.7",
+    "angular-route": "^1.5.8",
+    "angular": "^1.5.8",
+    "angular-mocks": "^1.5.7",
     "animsition": "^4.0.2",
-    "angular-mocks": "^1.5.7"
+    "bootstrap": "^3.3.7",
+    "components-font-awesome": "^4.6.3",
+    "angular-cookies": "^1.5.8"
   },
   "devDependencies": {
     "angular-animate": "^1.5.7"
