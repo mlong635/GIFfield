@@ -18,4 +18,3 @@ appPlayer.config(function($routeProvider, $mdThemingProvider) { // $mdThemingPro
         .primaryPalette('deep-orange')
         .accentPalette('orange')
 });
-
