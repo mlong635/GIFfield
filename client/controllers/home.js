@@ -49,6 +49,7 @@ tune.controller('HomeController', ['$scope', 'socket', 'playerFactory', 'soundSe
     //on clicking play we emit the ID and the status for clients to listen to and act upon
     $scope.playBottom = function() {
       if ($scope.playListFinal[0] && !playerFactory.isPlaying) {
+        playerFactory.isPlaying = true;
         socket.emit("playNpause", {
           //use id to pass to server for people who join song midtrack
           id: $scope.playListFinal[0].id,
@@ -58,7 +59,7 @@ tune.controller('HomeController', ['$scope', 'socket', 'playerFactory', 'soundSe
     }
 
     $scope.playChosen = function(track) {
-      console.log(track.id);
+      console.log("$scope.playChosen invoked", track.id);
       socket.emit("playNpause", {
         value: track,
         status: 'playCurrSong'
@@ -67,7 +68,7 @@ tune.controller('HomeController', ['$scope', 'socket', 'playerFactory', 'soundSe
 
     //pause emits id and status to pause on all devices
     $scope.pause = function() {
-      console.log('isPlaying')
+      console.log('home.js $scope.pause() invoked')
       if (playerFactory.isPlaying) {
         socket.emit("playNpause", {
           status: 'pause'
@@ -77,6 +78,8 @@ tune.controller('HomeController', ['$scope', 'socket', 'playerFactory', 'soundSe
 
     //on clicking next, we emit id and status to change song on all devices
     $scope.next = function() {
+      $scope.pause();
+      console.log("$scope.next invoked");
       socket.emit("playNpause", {
         status: 'next'
       });
@@ -185,6 +188,7 @@ tune.controller('HomeController', ['$scope', 'socket', 'playerFactory', 'soundSe
     });
 
     socket.on("playNpause", function(obj) {
+      console.log("playNpause invoked", obj);
       if (obj.status === "playCurrSong") {
         if (playerFactory.isPlaying === true && playerFactory.curSong.id !== obj.value.id) {
           playerFactory.curSong.stop();
@@ -192,30 +196,25 @@ tune.controller('HomeController', ['$scope', 'socket', 'playerFactory', 'soundSe
         }
         setSong(obj.value.id);
       }
-      if (obj.status === "play") {
-        console.log(playerFactory.curSong);
+      else if (obj.status === "play") {
+        console.log("home.js playNpause status is play");
         if (!playerFactory.curSong) {
           obj.id = $scope.playListFinal[0].id;
-
-          console.log(obj.id);
-          //REGEX to filter out only the '/tracks/track_number'
-          obj.id = obj.id.match(/\/tracks\/\d*/g);
-          //fetches audio object for the provided track ID
-          SC.stream(obj.id, function(audioObj) {
-            playerFactory.curSong = audioObj;
-            console.log('audioobj inside play func', audioObj);
-            songHasFinished();
-          });
+          setSong(obj.id);
         };
         playerFactory.isPlaying = true;
         playerFactory.curSong.play();
       }
-      if (obj.status === "pause") {
+      else if (obj.status === "pause") {
+        console.log("home.js playNpause invoked status is 'pause'")
         playerFactory.isPlaying = false;
         playerFactory.curSong.pause();
       }
-      if (obj.status === 'next') {
-        //removes the curent audio Object
+      else if (obj.status === 'next') {
+        console.log("next invoked");
+        playerFactory.isPlaying = false;
+        playerFactory.curSong.stop();
+        //removes the current audio Object
         $scope.playListFinal.shift();
         //calls the play function on the new audio Object
         obj.id = $scope.playListFinal[0].id;

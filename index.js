@@ -33,12 +33,13 @@ io.on('connection', function(socket){
     });
 
   socket.on('playNpause', function(cb){
+    console.log("index.js socket.on playNpause invoked", cb);
     if(cb.status === 'play'){
       console.log('status was play', cb.id);
       currentSong = cb.id;
     }
     io.emit('playNpause', cb);
-    //socket.emit('playNpause', cb);
+    // socket.emit('playNpause', cb);
   });
 
   socket.on('username', function(name){
